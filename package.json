@@ -49,8 +49,10 @@
     "@testing-library/jest-dom": "^6.0.0",
     "@testing-library/react": "^16.0.0",
     "@testing-library/user-event": "^14.0.0",
+    "@types/node": "^24.6.1",
     "@types/react": "^18.0.0",
     "@types/react-dom": "^18.0.0",
+    "@types/uuid": "^10.0.0",
     "@vitejs/plugin-react": "^4.0.0",
     "@vitest/ui": "^2.0.0",
     "happy-dom": "^15.0.0",
@@ -69,5 +71,8 @@
   "bugs": {
     "url": "https://github.com/littlebee/basic_bot_react/issues"
   },
-  "homepage": "https://littlebee.github.io/basic_bot_react"
+  "homepage": "https://littlebee.github.io/basic_bot_react",
+  "dependencies": {
+    "uuid": "^13.0.0"
+  }
 }
