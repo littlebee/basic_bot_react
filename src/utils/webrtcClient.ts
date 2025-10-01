@@ -1,9 +1,44 @@
+/**
+ * WebRTC Client for Video/Audio Streaming
+ *
+ * This module provides a WebRTC client for establishing real-time audio and
+ * video connections with a robot's streaming server.
+ *
+ * @module webrtcClient
+ */
+
 import { videoHost } from "./hubState";
 
+/**
+ * WebRTC client for receiving video and audio streams from the robot.
+ *
+ * Manages the WebRTC peer connection, handles SDP offer/answer negotiation,
+ * and connects incoming media tracks to HTML video and audio elements.
+ *
+ * @example
+ * ```typescript
+ * const client = new WebRTCClient();
+ * const videoEl = document.querySelector('video');
+ * const audioEl = document.querySelector('audio');
+ * client.start(videoEl, audioEl);
+ *
+ * // Later, to stop streaming:
+ * client.stop();
+ * ```
+ */
 export class WebRTCClient {
     private pc: RTCPeerConnection | null = null;
     private webrtcServerUrl = `http://${videoHost}/offer`;
 
+    /**
+     * Negotiates the WebRTC connection with the server.
+     *
+     * Performs SDP offer/answer exchange, waits for ICE gathering to complete,
+     * sends the offer to the server, and processes the server's answer.
+     *
+     * @private
+     * @returns Promise that resolves when negotiation completes
+     */
     private negotiate() {
         if (!this.pc) return Promise.reject("PeerConnection not initialized");
 
@@ -82,6 +117,24 @@ export class WebRTCClient {
             });
     }
 
+    /**
+     * Starts the WebRTC connection and begins receiving media streams.
+     *
+     * Creates a new RTCPeerConnection, sets up track event listeners to
+     * connect incoming video and audio streams to the provided HTML elements,
+     * and initiates the SDP negotiation process.
+     *
+     * @param videoElement - HTML video element to receive video stream
+     * @param audioElement - HTML audio element to receive audio stream
+     *
+     * @example
+     * ```typescript
+     * const client = new WebRTCClient();
+     * const video = document.getElementById('robot-video') as HTMLVideoElement;
+     * const audio = document.getElementById('robot-audio') as HTMLAudioElement;
+     * client.start(video, audio);
+     * ```
+     */
     start(videoElement: HTMLVideoElement, audioElement: HTMLAudioElement) {
         this.pc = new RTCPeerConnection();
 
@@ -97,6 +150,17 @@ export class WebRTCClient {
         this.negotiate();
     }
 
+    /**
+     * Stops the WebRTC connection and closes the peer connection.
+     *
+     * Closes the RTCPeerConnection and releases associated resources.
+     * Safe to call multiple times - subsequent calls are no-ops.
+     *
+     * @example
+     * ```typescript
+     * client.stop();
+     * ```
+     */
     stop() {
         if (!this.pc) {
             console.debug("webrtcClient#stop(): PeerConnection already closed");
