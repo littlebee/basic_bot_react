@@ -1,6 +1,6 @@
 // Main entry point for the library
 // Export all components
-export * from './components';
+export * from "./components";
 
 // Export useful types and utilities
 export type {
@@ -11,8 +11,7 @@ export type {
   ISystemStats,
   I2WMotorSpeeds,
   ConnectToHubOptions,
-  BehaviorMode,
-} from './utils/hubState';
+} from "./utils/hubState";
 
 export {
   connectToHub,
@@ -23,7 +22,7 @@ export {
   updateSharedState,
   DEFAULT_HUB_STATE,
   DEFAULT_BB_HUB_PORT,
-} from './utils/hubState';
+} from "./utils/hubState";
 
-export { sendHubStateUpdate } from './utils/hubMessages';
-export { WebRTCClient } from './utils/webrtcClient';
+export { sendHubStateUpdate } from "./utils/hubMessages";
+export { WebRTCClient } from "./utils/webrtcClient";

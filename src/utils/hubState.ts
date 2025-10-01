@@ -31,49 +31,37 @@ const MIN_HUB_UPDATE_INTERVAL = 1500;
 export const DEFAULT_BB_HUB_PORT = 5100;
 
 /**
- * Robot behavior operating modes
- */
-export enum BehaviorMode {
-    /** Autonomous mode - robot operates independently */
-    Autonomous = "auto",
-    /** Manual mode - robot controlled by user input */
-    Manual = "manual",
-}
-
-/**
  * Central hub state shared between web application and robot services.
  * This interface represents the synchronized state maintained by the basic_bot central hub.
  */
 export interface IHubState {
-    /** Connection status to the hub (UI only) */
-    hubConnStatus?: string;
+  /** Connection status to the hub (UI only) */
+  hubConnStatus?: string;
 
-    /** Hub statistics (see hub_state.py in basic_bot) */
-    hub_stats: {
-        /** Number of state updates received by the hub */
-        state_updates_recv: number;
-    };
+  /** Hub statistics (see hub_state.py in basic_bot) */
+  hub_stats: {
+    /** Number of state updates received by the hub */
+    state_updates_recv: number;
+  };
 
-    /** Array of recognized objects from vision service */
-    recognition?: Array<IRecognizedObject>;
+  /** Array of recognized objects from vision service */
+  recognition?: Array<IRecognizedObject>;
 
-    /** Primary tracking target (provided by daphbot service) */
-    primary_target?: IRecognizedObject | null;
+  /** System statistics (CPU, RAM, temp) */
+  system_stats?: ISystemStats;
 
-    /** System statistics (CPU, RAM, temp) */
-    system_stats?: ISystemStats;
+  /** Servo motor configuration */
+  servo_config?: IServoConfig;
 
-    /** Servo motor configuration */
-    servo_config?: IServoConfig;
+  /** Target servo angles
+   *
+   * This is a hash of servo names (as defined in
+   * servo_config.yml), to target angles in degrees.
+   */
+  servo_angles?: Record<string, number>;
 
-    /** Target servo angles by servo name */
-    servo_angles?: Record<string, number>;
-
-    /** Actual current servo angles by servo name */
-    servo_actual_angles?: Record<string, number>;
-
-    /** Robot behavior mode (autonomous or manual) */
-    daphbot_mode: BehaviorMode;
+  /** Actual current servo angles by servo name */
+  servo_actual_angles?: Record<string, number>;
 }
 
 /**
@@ -81,88 +69,86 @@ export interface IHubState {
  * Includes classification, confidence score, and bounding box coordinates.
  */
 export interface IRecognizedObject {
-    /** Object classification label (e.g., "person", "cat", "dog") */
-    classification: string;
+  /** Object classification label (e.g., "person", "cat", "dog") */
+  classification: string;
 
-    /** Detection confidence score (0.0 to 1.0) */
-    confidence: number;
+  /** Detection confidence score (0.0 to 1.0) */
+  confidence: number;
 
-    /** Bounding box as [left, top, right, bottom] in pixels */
-    bounding_box: [number, number, number, number];
+  /** Bounding box as [left, top, right, bottom] in pixels */
+  bounding_box: [number, number, number, number];
 }
 
 /**
  * System resource utilization statistics from the robot.
  */
 export interface ISystemStats {
-    /** CPU utilization percentage (0-100) */
-    cpu_util: number;
+  /** CPU utilization percentage (0-100) */
+  cpu_util: number;
 
-    /** CPU temperature in Celsius */
-    cpu_temp: number;
+  /** CPU temperature in Celsius */
+  cpu_temp: number;
 
-    /** RAM utilization percentage (0-100) */
-    ram_util: number;
+  /** RAM utilization percentage (0-100) */
+  ram_util: number;
 
-    /** System hostname */
-    hostname: string;
+  /** System hostname */
+  hostname: string;
 }
 
 /**
  * Motor speeds for a two-wheeled robot.
  */
 export interface I2WMotorSpeeds {
-    /** Left motor speed (-1.0 to 1.0) */
-    left: number;
+  /** Left motor speed (-1.0 to 1.0) */
+  left: number;
 
-    /** Right motor speed (-1.0 to 1.0) */
-    right: number;
+  /** Right motor speed (-1.0 to 1.0) */
+  right: number;
 }
 
 /**
  * Configuration parameters for a single servo motor.
  */
 export interface IServo {
-    /** Servo identifier name (e.g., "pan", "tilt") */
-    name: string;
+  /** Servo identifier name (e.g., "pan", "tilt") */
+  name: string;
 
-    /** Hardware channel number */
-    channel: number;
+  /** Hardware channel number */
+  channel: number;
 
-    /** Total range of motion in degrees */
-    motor_range: number;
+  /** Total range of motion in degrees */
+  motor_range: number;
 
-    /** Minimum angle in degrees */
-    min_angle: number;
+  /** Minimum angle in degrees */
+  min_angle: number;
 
-    /** Maximum angle in degrees */
-    max_angle: number;
+  /** Maximum angle in degrees */
+  max_angle: number;
 
-    /** Minimum PWM pulse width in microseconds */
-    min_pulse: number;
+  /** Minimum PWM pulse width in microseconds */
+  min_pulse: number;
 
-    /** Maximum PWM pulse width in microseconds */
-    max_pulse: number;
+  /** Maximum PWM pulse width in microseconds */
+  max_pulse: number;
 }
 
 /**
  * Configuration for multiple servo motors.
  */
 export interface IServoConfig {
-    /** Array of servo configurations */
-    servos: IServo[];
+  /** Array of servo configurations */
+  servos: IServo[];
 }
 
 /**
  * Default initial state for the hub connection.
  */
 export const DEFAULT_HUB_STATE: IHubState = {
-    hubConnStatus: "offline",
+  hubConnStatus: "offline",
 
-    // provided by central_hub/
-    hub_stats: { state_updates_recv: 0 },
-
-    daphbot_mode: BehaviorMode.Autonomous,
+  // provided by central_hub/
+  hub_stats: { state_updates_recv: 0 },
 };
 
 const __hub_state: IHubState = { ...DEFAULT_HUB_STATE };
@@ -180,14 +166,14 @@ export let webSocket: WebSocket | null = null;
  * Options for establishing a connection to the central hub.
  */
 export interface ConnectToHubOptions {
-    /** WebSocket port number (default: 5100) */
-    port?: number;
+  /** WebSocket port number (default: 5100) */
+  port?: number;
 
-    /** Initial hub state (default: DEFAULT_HUB_STATE) */
-    state?: IHubState;
+  /** Initial hub state (default: DEFAULT_HUB_STATE) */
+  state?: IHubState;
 
-    /** Automatically reconnect on disconnect (default: true) */
-    autoReconnect?: boolean;
+  /** Automatically reconnect on disconnect (default: true) */
+  autoReconnect?: boolean;
 }
 
 /**
@@ -208,108 +194,101 @@ export interface ConnectToHubOptions {
  * ```
  */
 export function connectToHub({
-    port = DEFAULT_BB_HUB_PORT,
-    state = DEFAULT_HUB_STATE,
-    autoReconnect = true,
+  port = DEFAULT_BB_HUB_PORT,
+  state = DEFAULT_HUB_STATE,
+  autoReconnect = true,
 }: ConnectToHubOptions) {
-    try {
-        setHubConnStatus("connecting");
-        const hubUrl = `ws://${hubHost}:${port}/ws`;
-        console.log(`connecting to central-hub at ${hubUrl}`);
-        webSocket = new WebSocket(hubUrl);
+  try {
+    setHubConnStatus("connecting");
+    const hubUrl = `ws://${hubHost}:${port}/ws`;
+    console.log(`connecting to central-hub at ${hubUrl}`);
+    webSocket = new WebSocket(hubUrl);
 
-        webSocket.addEventListener("open", function () {
-            lastHubUpdate = Date.now();
+    webSocket.addEventListener("open", function () {
+      lastHubUpdate = Date.now();
 
-            // we need to wait a bit before sending these messages
-            // because websocket is not fully connected yet
-            setTimeout(() => {
-                webSocket!.send(JSON.stringify({ type: "getState" }));
-                webSocket!.send(
-                    JSON.stringify({ type: "identity", data: "webapp" })
-                );
-                webSocket!.send(
-                    JSON.stringify({ type: "subscribeState", data: "*" })
-                );
-                setHubConnStatus("online");
-                startHubMonitor();
-            }, 100);
-        });
+      // we need to wait a bit before sending these messages
+      // because websocket is not fully connected yet
+      setTimeout(() => {
+        webSocket!.send(JSON.stringify({ type: "getState" }));
+        webSocket!.send(JSON.stringify({ type: "identity", data: "webapp" }));
+        webSocket!.send(JSON.stringify({ type: "subscribeState", data: "*" }));
+        setHubConnStatus("online");
+        startHubMonitor();
+      }, 100);
+    });
 
-        webSocket.addEventListener("error", function (event) {
-            console.error("got error from central-hub socket", event);
-        });
+    webSocket.addEventListener("error", function (event) {
+      console.error("got error from central-hub socket", event);
+    });
 
-        webSocket.addEventListener("close", function () {
-            if (autoReconnect) {
-                delayedConnectToHub(state);
-            }
-        });
+    webSocket.addEventListener("close", function () {
+      if (autoReconnect) {
+        delayedConnectToHub(state);
+      }
+    });
 
-        webSocket.addEventListener("message", function (event) {
-            lastHubUpdate = Date.now();
-            let message = null;
-            try {
-                message = JSON.parse(event.data);
-            } catch (e) {
-                console.error("error parsing message from central-hub", e);
-                return;
-            }
-            if (message.type === "pong") {
-                return;
-            }
-            logMessage("got message from central-hub", {
-                raw: event.data,
-                parsed: message,
-            });
-            if (message.type === "state" && hubStatePromises.length > 0) {
-                hubStatePromises.forEach((p) => p(message.data));
-                hubStatePromises = [];
-            } else if (
-                message.type === "state" ||
-                message.type === "stateUpdate"
-            ) {
-                updateStateFromCentralHub(message.data);
-            }
-        });
-    } catch (e) {
-        onConnError(state, e as Error, autoReconnect);
-    }
+    webSocket.addEventListener("message", function (event) {
+      lastHubUpdate = Date.now();
+      let message = null;
+      try {
+        message = JSON.parse(event.data);
+      } catch (e) {
+        console.error("error parsing message from central-hub", e);
+        return;
+      }
+      if (message.type === "pong") {
+        return;
+      }
+      logMessage("got message from central-hub", {
+        raw: event.data,
+        parsed: message,
+      });
+      if (message.type === "state" && hubStatePromises.length > 0) {
+        hubStatePromises.forEach((p) => p(message.data));
+        hubStatePromises = [];
+      } else if (message.type === "state" || message.type === "stateUpdate") {
+        updateStateFromCentralHub(message.data);
+      }
+    });
+  } catch (e) {
+    onConnError(state, e as Error, autoReconnect);
+  }
 }
 
 function startHubMonitor() {
-    stopHubMonitor();
-    hubMonitor = setInterval(() => {
-        try {
-            if (!webSocket || webSocket.readyState !== WebSocket.OPEN) {
-                stopHubMonitor();
-                return;
-            }
+  stopHubMonitor();
+  hubMonitor = setInterval(() => {
+    try {
+      if (!webSocket || webSocket.readyState !== WebSocket.OPEN) {
+        stopHubMonitor();
+        return;
+      }
 
-            // if the socket is hung or there is no network,
-            // the websocket will not error out until we send something
-            webSocket!.send(JSON.stringify({ type: "ping" }));
+      // if the socket is hung or there is no network,
+      // the websocket will not error out until we send something
+      webSocket!.send(JSON.stringify({ type: "ping" }));
 
-            if (
-                __hub_state.hubConnStatus === "online" &&
-                Date.now() - lastHubUpdate > MIN_HUB_UPDATE_INTERVAL
-            ) {
-                setHubConnStatus("offline");
-            }
-        } catch (e) {
-            // will get caught by the close if there is a problem
-            // but if we send above before while the socket is connecting
-            // it will throw a spurious error
-            console.error("error pinging central-hub", e);
-        }
-    }, HUB_PING_INTERVAL);
+      if (
+        __hub_state.hubConnStatus === "online" &&
+        Date.now() - lastHubUpdate > MIN_HUB_UPDATE_INTERVAL
+      ) {
+        setHubConnStatus("offline");
+      }
+    } catch (e) {
+      // will get caught by the close if there is a problem
+      // but if we send above before while the socket is connecting
+      // it will throw a spurious error
+      console.error("error pinging central-hub", e);
+    }
+  }, HUB_PING_INTERVAL);
 }
 
 function stopHubMonitor() {
-    if (hubMonitor) {
-        clearInterval(hubMonitor);
-        hubMonitor = null;
-    }
+  if (hubMonitor) {
+    clearInterval(hubMonitor);
+    hubMonitor = null;
+  }
 }
 
 /**
@@ -330,9 +309,9 @@ function stopHubMonitor() {
  * ```
  */
 export function addHubStateUpdatedListener(
-    handler: (state: IHubState) => void
+  handler: (state: IHubState) => void
 ) {
-    onUpdateCallbacks.push(handler);
+  onUpdateCallbacks.push(handler);
 }
 
 /**
@@ -341,12 +320,12 @@ export function addHubStateUpdatedListener(
  * @param handler - The callback function to remove
  */
 export function removeHubStateUpdatedListener(
-    handler: (state: IHubState) => void
+  handler: (state: IHubState) => void
 ) {
-    const index = onUpdateCallbacks.indexOf(handler);
-    if (index !== -1) {
-        onUpdateCallbacks.splice(index, 1);
-    }
+  const index = onUpdateCallbacks.indexOf(handler);
+  if (index !== -1) {
+    onUpdateCallbacks.splice(index, 1);
+  }
 }
 
 /**
@@ -355,7 +334,7 @@ export function removeHubStateUpdatedListener(
  * @returns The current hub state object
  */
 export function getLocalState() {
-    return __hub_state;
+  return __hub_state;
 }
 
 /**
@@ -373,11 +352,11 @@ export function getLocalState() {
  * ```
  */
 export function getStateFromCentralHub() {
-    const statePromise = new Promise<IHubState>((resolve) =>
-        hubStatePromises.push(resolve)
-    );
-    webSocket!.send(JSON.stringify({ type: "getState" }));
-    return statePromise;
+  const statePromise = new Promise<IHubState>((resolve) =>
+    hubStatePromises.push(resolve)
+  );
+  webSocket!.send(JSON.stringify({ type: "getState" }));
+  return statePromise;
 }
 
 /**
@@ -396,48 +375,45 @@ export function getStateFromCentralHub() {
  * ```
  */
 export function updateSharedState(newState: IHubState) {
-    webSocket!.send(JSON.stringify({ type: "updateState", data: newState }));
+  webSocket!.send(JSON.stringify({ type: "updateState", data: newState }));
 }
 
 function delayedConnectToHub(state: IHubState) {
-    setTimeout(() => {
-        if (state.hubConnStatus === "offline") {
-            connectToHub({ port: __hub_port, state });
-        }
-    }, 5000);
+  setTimeout(() => {
+    if (state.hubConnStatus === "offline") {
+      connectToHub({ port: __hub_port, state });
+    }
+  }, 5000);
 }
 
 function onConnError(state: IHubState, e: Error, autoReconnect = true) {
-    console.error(
-        "Connection error; will attempt to reconnnect in 5 seconds",
-        e
-    );
-    stopHubMonitor();
-    setHubConnStatus("offline");
-    if (autoReconnect) {
-        delayedConnectToHub(state);
-    }
+  console.error("Connection error; will attempt to reconnnect in 5 seconds", e);
+  stopHubMonitor();
+  setHubConnStatus("offline");
+  if (autoReconnect) {
+    delayedConnectToHub(state);
+  }
 }
 
 // not exported, should only be called from connectToHub
 function setHubConnStatus(newStatus: string) {
-    logMessage("setting conn status", newStatus);
-    __hub_state.hubConnStatus = newStatus;
-    emitUpdated();
+  logMessage("setting conn status", newStatus);
+  __hub_state.hubConnStatus = newStatus;
+  emitUpdated();
 }
 
 function updateStateFromCentralHub(hubData: IHubState) {
-    for (const [key, value] of Object.entries(hubData)) {
-        // @ts-expect-error hub state from central hub is not strongly typed
-        __hub_state[key] = value;
-    }
-    emitUpdated();
+  for (const [key, value] of Object.entries(hubData)) {
+    // @ts-expect-error hub state from central hub is not strongly typed
+    __hub_state[key] = value;
+  }
+  emitUpdated();
 }
 
 function emitUpdated() {
-    for (const callback of onUpdateCallbacks) {
-        callback(__hub_state);
-    }
+  for (const callback of onUpdateCallbacks) {
+    callback(__hub_state);
+  }
 }
 
 /**
@@ -450,7 +426,7 @@ function emitUpdated() {
  */
 // eslint-disable-next-line
 export function logMessage(...args: any[]) {
-    if (logMessages) {
-        console.log(...args);
-    }
+  if (logMessages) {
+    console.log(...args);
+  }
 }
