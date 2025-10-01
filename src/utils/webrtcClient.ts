@@ -61,14 +61,14 @@ export class WebRTCClient {
                             if (this.pc.iceGatheringState === "complete") {
                                 this.pc.removeEventListener(
                                     "icegatheringstatechange",
-                                    checkState
+                                    checkState,
                                 );
                                 resolve(void 0);
                             }
                         };
                         this.pc.addEventListener(
                             "icegatheringstatechange",
-                            checkState
+                            checkState,
                         );
                     }
                 });
@@ -78,7 +78,7 @@ export class WebRTCClient {
                 const offer = this.pc.localDescription;
                 if (!offer) {
                     console.error(
-                        "webrtcClient: No local description available"
+                        "webrtcClient: No local description available",
                     );
                     return;
                 }
@@ -98,7 +98,7 @@ export class WebRTCClient {
                     throw new Error(
                         `webrtcClient: Failed to get answer from server: ${
                             response ? response.statusText : "No response"
-                        }`
+                        }`,
                     );
                 }
                 return response && response.json();
@@ -106,7 +106,7 @@ export class WebRTCClient {
             .then((answer) => {
                 if (!this.pc) {
                     console.error(
-                        "webrtcClient: Got offer answer but PeerConnection not initialized"
+                        "webrtcClient: Got offer answer but PeerConnection not initialized",
                     );
                     return;
                 }

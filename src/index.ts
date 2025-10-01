@@ -4,24 +4,24 @@ export * from "./components";
 
 // Export useful types and utilities
 export type {
-  IHubState,
-  IRecognizedObject,
-  IServo,
-  IServoConfig,
-  ISystemStats,
-  I2WMotorSpeeds,
-  ConnectToHubOptions,
+    IHubState,
+    IRecognizedObject,
+    IServo,
+    IServoConfig,
+    ISystemStats,
+    I2WMotorSpeeds,
+    ConnectToHubOptions,
 } from "./utils/hubState";
 
 export {
-  connectToHub,
-  addHubStateUpdatedListener,
-  removeHubStateUpdatedListener,
-  getLocalState,
-  getStateFromCentralHub,
-  updateSharedState,
-  DEFAULT_HUB_STATE,
-  DEFAULT_BB_HUB_PORT,
+    connectToHub,
+    addHubStateUpdatedListener,
+    removeHubStateUpdatedListener,
+    getLocalState,
+    getStateFromCentralHub,
+    updateSharedState,
+    DEFAULT_HUB_STATE,
+    DEFAULT_BB_HUB_PORT,
 } from "./utils/hubState";
 
 export { sendHubStateUpdate } from "./utils/hubMessages";

@@ -1,12 +1,12 @@
 {
-  "extends": "./tsconfig.json",
-  "compilerOptions": {
-    "noEmit": false,
-    "declaration": true,
-    "declarationDir": "./dist",
-    "emitDeclarationOnly": true,
-    "allowImportingTsExtensions": false
-  },
-  "include": ["src"],
-  "exclude": ["**/*.test.tsx", "**/*.test.ts", "**/*.stories.tsx"]
+    "extends": "./tsconfig.json",
+    "compilerOptions": {
+        "noEmit": false,
+        "declaration": true,
+        "declarationDir": "./dist",
+        "emitDeclarationOnly": true,
+        "allowImportingTsExtensions": false
+    },
+    "include": ["src"],
+    "exclude": ["**/*.test.tsx", "**/*.test.ts", "**/*.stories.tsx"]
 }

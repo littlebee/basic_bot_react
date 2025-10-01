@@ -1,19 +1,19 @@
 {
-  "$schema": "https://typedoc.org/schema.json",
-  "entryPoints": ["src/utils/*.ts"],
-  "entryPointStrategy": "expand",
-  "out": "src/docs",
-  "plugin": ["typedoc-plugin-markdown"],
-  "outputFileStrategy": "modules",
-  "fileExtension": ".mdx",
-  "tsconfig": "tsconfig.typedoc.json",
-  "hideGenerator": true,
-  "hideBreadcrumbs": true,
-  "excludePrivate": true,
-  "excludeProtected": true,
-  "excludeExternals": true,
-  "readme": "none",
-  "navigationLinks": {
-    "Back to Components": "/?path=/docs"
-  }
+    "$schema": "https://typedoc.org/schema.json",
+    "entryPoints": ["src/utils/*.ts"],
+    "entryPointStrategy": "expand",
+    "out": "src/docs",
+    "plugin": ["typedoc-plugin-markdown"],
+    "outputFileStrategy": "modules",
+    "fileExtension": ".mdx",
+    "tsconfig": "tsconfig.typedoc.json",
+    "hideGenerator": true,
+    "hideBreadcrumbs": true,
+    "excludePrivate": true,
+    "excludeProtected": true,
+    "excludeExternals": true,
+    "readme": "none",
+    "navigationLinks": {
+        "Back to Components": "/?path=/docs"
+    }
 }

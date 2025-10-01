@@ -11,10 +11,10 @@ npm install basic_bot_react
 ## Usage
 
 ```tsx
-import { YourComponent } from 'basic_bot_react';
+import { YourComponent } from "basic_bot_react";
 
 function App() {
-  return <YourComponent />;
+    return <YourComponent />;
 }
 ```
 
@@ -75,44 +75,48 @@ Example component with Autodocs:
 ```tsx
 // src/components/Button/Button.tsx
 export interface ButtonProps {
-  /** The button variant style */
-  variant?: 'primary' | 'secondary';
-  /** Button click handler */
-  onClick?: () => void;
-  /** Button content */
-  children: React.ReactNode;
+    /** The button variant style */
+    variant?: "primary" | "secondary";
+    /** Button click handler */
+    onClick?: () => void;
+    /** Button content */
+    children: React.ReactNode;
 }
 
 /**
  * A reusable Button component
  */
-export const Button = ({ variant = 'primary', onClick, children }: ButtonProps) => {
-  return (
-    <button className={`btn-${variant}`} onClick={onClick}>
-      {children}
-    </button>
-  );
+export const Button = ({
+    variant = "primary",
+    onClick,
+    children,
+}: ButtonProps) => {
+    return (
+        <button className={`btn-${variant}`} onClick={onClick}>
+            {children}
+        </button>
+    );
 };
 ```
 
 ```tsx
 // src/components/Button/Button.stories.tsx
-import type { Meta, StoryObj } from '@storybook/react';
-import { Button } from './Button';
+import type { Meta, StoryObj } from "@storybook/react";
+import { Button } from "./Button";
 
 const meta: Meta<typeof Button> = {
-  component: Button,
-  tags: ['autodocs'], // Enables automatic documentation
+    component: Button,
+    tags: ["autodocs"], // Enables automatic documentation
 };
 
 export default meta;
 type Story = StoryObj<typeof Button>;
 
 export const Primary: Story = {
-  args: {
-    variant: 'primary',
-    children: 'Click me',
-  },
+    args: {
+        variant: "primary",
+        children: "Click me",
+    },
 };
 ```
 

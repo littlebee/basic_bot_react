@@ -23,7 +23,7 @@ const ANGLE_CLOSE_ENOUGH: number = 0.5;
  */
 export function anglesCloseEnough(
     anglesA: number[],
-    anglesB: number[]
+    anglesB: number[],
 ): boolean {
     for (let i = 0; i < anglesA.length; i++) {
         if (Math.abs(anglesA[i] - anglesB[i]) > ANGLE_CLOSE_ENOUGH) {
@@ -49,7 +49,7 @@ export function findAngle(
     x1: number,
     y1: number,
     x2: number,
-    y2: number
+    y2: number,
 ): number {
     const angleDeg = (Math.atan2(y2 - y1, x2 - x1) * 360) / Math.PI;
     console.log({ x1, y1, x2, y2, angleDeg });
@@ -77,7 +77,7 @@ export function mapPanTiltToXYSquare(
     tiltAngle: number,
     tiltServo: IServo,
     containerSize: number,
-    indicatorRadius: number
+    indicatorRadius: number,
 ): [number, number] {
     const xf =
         panAngle - panServo.min_angle / panServo.max_angle - panServo.min_angle;
@@ -123,7 +123,7 @@ export function mapXYToPanTilt(
     y: number,
     panServo: IServo,
     tiltServo: IServo,
-    containerSize: number
+    containerSize: number,
 ): [number, number] {
     const panAngle =
         panServo.max_angle -

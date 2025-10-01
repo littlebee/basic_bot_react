@@ -41,7 +41,7 @@ export function ObjectsOverlay({ recogObjects }: ObjectsOverlayProps) {
                 <div className={st.objectConfidence}>
                     {obj.confidence.toFixed(3)}
                 </div>
-            </div>
+            </div>,
         );
     }
     return <div className={st.wrapper}>{elements}</div>;

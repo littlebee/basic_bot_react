@@ -1,0 +1,21 @@
+# Dependencies
+node_modules
+
+# Build outputs
+dist
+dist-ssr
+
+# Testing
+coverage
+
+# Storybook
+storybook-static
+
+# Generated documentation
+src/docs
+
+# TypeScript
+*.tsbuildinfo
+
+# Locks
+package-lock.json

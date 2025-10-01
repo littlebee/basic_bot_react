@@ -65,7 +65,7 @@ export function PanTilt({
             servoAngles["tilt"],
             tiltServo,
             TOUCH_GRID_SIZE,
-            ANGLE_INDICATOR_RADUIS
+            ANGLE_INDICATOR_RADUIS,
         );
     }, [servoAngles, panServo, tiltServo]);
 
@@ -79,7 +79,7 @@ export function PanTilt({
             servoActualAngles["tilt"],
             tiltServo,
             TOUCH_GRID_SIZE,
-            ACTUAL_INDICATOR_RADUIS
+            ACTUAL_INDICATOR_RADUIS,
         );
     }, [servoActualAngles, panServo, tiltServo]);
 
@@ -87,7 +87,7 @@ export function PanTilt({
         (
             event:
                 | React.MouseEvent<HTMLDivElement>
-                | React.TouchEvent<HTMLDivElement>
+                | React.TouchEvent<HTMLDivElement>,
         ) => {
             if (!panServo || !tiltServo) {
                 return;
@@ -104,14 +104,14 @@ export function PanTilt({
                 y,
                 panServo,
                 tiltServo,
-                TOUCH_GRID_SIZE
+                TOUCH_GRID_SIZE,
             );
             console.log({ x, y, panAngle, tiltAngle });
             sendHubStateUpdate({
                 servo_angles: { pan: panAngle, tilt: tiltAngle },
             });
         },
-        [panServo, tiltServo]
+        [panServo, tiltServo],
     );
 
     if (!servoConfig) {
@@ -120,7 +120,7 @@ export function PanTilt({
     if (!panServo || !tiltServo) {
         console.error(
             "Servo named 'pan' or 'tilt' not found in servo config",
-            servoConfig
+            servoConfig,
         );
         return null;
     }
