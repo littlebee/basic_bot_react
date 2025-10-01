@@ -30,5 +30,8 @@ coverage
 # Storybook
 storybook-static
 
+# Generated documentation
+src/docs/
+
 # Build
 *.tsbuildinfo
