@@ -5,12 +5,13 @@ they click the camera will pan and tilt to that position using the servos from c
 hub key `servo_config` named "pan" and "tilt".
 */
 
-import { useMemo, useCallback } from "react";
+import { useMemo, useCallback, useContext } from "react";
 
 import { IServoConfig, IServo } from "../../utils/hubState";
 import { sendHubStateUpdate } from "../../utils/hubMessages";
 import { mapPanTiltToXYSquare, mapXYToPanTilt } from "../../utils/angleUtils";
 import { isTouchEvent } from "../../utils/uiUtils";
+import { HubStateContext } from "../../context/HubStateProvider";
 import st from "./PanTilt.module.css";
 
 const TOUCH_GRID_SIZE = 200;
@@ -33,18 +34,30 @@ export interface PanTiltProps {
  * camera pan and tilt servos. Users can click or touch anywhere on the control
  * grid to set target angles. Visual indicators show both target and actual
  * servo positions. Requires servo configuration with servos named "pan" and "tilt".
+ *
+ * Can be used with or without HubStateProvider:
+ * - With props: Pass servoConfig, servoAngles, and servoActualAngles directly
+ * - With provider: Wrap in HubStateProvider and props will be automatically populated
  */
 export function PanTilt({
     servoConfig,
     servoAngles,
     servoActualAngles,
 }: PanTiltProps) {
+    // Try to get hub state from context (will be null if not in provider)
+    const hubState = useContext(HubStateContext);
+
+    // Use props if provided, otherwise fall back to context
+    const config = servoConfig ?? hubState?.servo_config;
+    const angles = servoAngles ?? hubState?.servo_angles;
+    const actualAngles = servoActualAngles ?? hubState?.servo_actual_angles;
+
     const [panServo, tiltServo]: [IServo | null, IServo | null] =
         useMemo(() => {
             let pan = null;
             let tilt = null;
-            if (servoConfig) {
-                for (const servo of servoConfig.servos) {
+            if (config) {
+                for (const servo of config.servos) {
                     if (servo.name === "pan") {
                         pan = servo;
                     } else if (servo.name === "tilt") {
@@ -53,35 +66,35 @@ export function PanTilt({
                 }
             }
             return [pan, tilt];
-        }, [servoConfig]);
+        }, [config]);
 
     const [angleX, angleY]: [number, number] = useMemo(() => {
-        if (!panServo || !tiltServo || !servoAngles) {
+        if (!panServo || !tiltServo || !angles) {
             return [0, 0];
         }
         return mapPanTiltToXYSquare(
-            servoAngles["pan"],
+            angles["pan"],
             panServo,
-            servoAngles["tilt"],
+            angles["tilt"],
             tiltServo,
             TOUCH_GRID_SIZE,
             ANGLE_INDICATOR_RADUIS,
         );
-    }, [servoAngles, panServo, tiltServo]);
+    }, [angles, panServo, tiltServo]);
 
     const [angleActualX, angleActualY]: [number, number] = useMemo(() => {
-        if (!panServo || !tiltServo || !servoActualAngles) {
+        if (!panServo || !tiltServo || !actualAngles) {
             return [0, 0];
         }
         return mapPanTiltToXYSquare(
-            servoActualAngles["pan"],
+            actualAngles["pan"],
             panServo,
-            servoActualAngles["tilt"],
+            actualAngles["tilt"],
             tiltServo,
             TOUCH_GRID_SIZE,
             ACTUAL_INDICATOR_RADUIS,
         );
-    }, [servoActualAngles, panServo, tiltServo]);
+    }, [actualAngles, panServo, tiltServo]);
 
     const handleTouch = useCallback(
         (
@@ -114,20 +127,20 @@ export function PanTilt({
         [panServo, tiltServo],
     );
 
-    if (!servoConfig) {
+    if (!config) {
         return null;
     }
     if (!panServo || !tiltServo) {
         console.error(
             "Servo named 'pan' or 'tilt' not found in servo config",
-            servoConfig,
+            config,
         );
         return null;
     }
 
     return (
         <div className={st.outerContainer} data-testid="pan-tilt">
-            <h4>Pan ({servoActualAngles?.["pan"].toFixed(1)})</h4>
+            <h4>Pan ({actualAngles?.["pan"].toFixed(1)})</h4>
             <div className={st.servoRange}>
                 <div>{panServo.max_angle}&deg;</div>
                 <div className={st.spacer} />
