@@ -64,6 +64,10 @@ export interface IHubState {
     servo_actual_angles?: Record<string, number>;
 }
 
+export interface IAnyState {
+    [key: string]: string | number | boolean | object;
+}
+
 /**
  * Object detected by computer vision system.
  * Includes classification, confidence score, and bounding box coordinates.
@@ -316,7 +320,7 @@ function stopHubMonitor() {
  * ```
  */
 export function addHubStateUpdatedListener(
-    handler: (state: IHubState) => void,
+    handler: (state: Partial<IHubState> | IAnyState) => void,
 ) {
     onUpdateCallbacks.push(handler);
 }

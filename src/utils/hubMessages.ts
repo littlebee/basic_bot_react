@@ -8,7 +8,7 @@
  */
 
 import { webSocket, logMessage } from "./hubState";
-import { IHubState } from "./hubState";
+import { IHubState, IAnyState } from "./hubState";
 
 /**
  * Sends a partial state update to the central hub.
@@ -33,7 +33,7 @@ import { IHubState } from "./hubState";
  * });
  * ```
  */
-export function sendHubStateUpdate(data: Partial<IHubState>) {
+export function sendHubStateUpdate(data: Partial<IHubState> | IAnyState) {
     logMessage("sending state update", { data, webSocket });
     if (webSocket && webSocket.readyState === WebSocket.OPEN) {
         webSocket.send(
