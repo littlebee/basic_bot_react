@@ -22,6 +22,9 @@ export {
     updateSharedState,
     DEFAULT_HUB_STATE,
     DEFAULT_BB_HUB_PORT,
+    hubHost,
+    videoHost,
+    logMessages,
 } from "./utils/hubState";
 
 export { sendHubStateUpdate } from "./utils/hubMessages";
