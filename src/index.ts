@@ -2,6 +2,11 @@
 // Export all components
 export * from "./components";
 
+// Export context provider and hook
+export { HubStateProvider } from "./context/HubStateProvider";
+export type { HubStateProviderProps } from "./context/HubStateProvider";
+export { useHubState } from "./context/useHubState";
+
 // Export useful types and utilities
 export type {
     IHubState,

@@ -1,6 +1,8 @@
+import { useContext } from "react";
 import { v4 as uuidv4 } from "uuid";
 
 import { IRecognizedObject } from "../../utils/hubState";
+import { HubStateContext } from "../../context/HubStateProvider";
 
 import st from "./ObjectsOverlay.module.css";
 
@@ -15,13 +17,23 @@ export interface ObjectsOverlayProps {
  * This component overlays rectangular boxes on detected objects, displaying
  * their classification and confidence scores. Typically used on top of video
  * feeds to visualize computer vision detection results.
+ *
+ * Can be used with or without HubStateProvider:
+ * - With props: Pass recogObjects directly
+ * - With provider: Wrap in HubStateProvider and objects will be automatically populated from recognition state
  */
 export function ObjectsOverlay({ recogObjects }: ObjectsOverlayProps) {
-    if (!recogObjects || recogObjects.length < 1) {
+    // Try to get hub state from context (will be null if not in provider)
+    const hubState = useContext(HubStateContext);
+
+    // Use props if provided, otherwise fall back to context
+    const objects = recogObjects ?? hubState?.recognition;
+
+    if (!objects || objects.length < 1) {
         return null;
     }
     const elements = [];
-    for (const obj of recogObjects) {
+    for (const obj of objects) {
         const [left, top, right, bottom] = obj.bounding_box;
 
         const style = {
