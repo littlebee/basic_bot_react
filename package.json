@@ -11,7 +11,8 @@
       "import": "./dist/basic_bot_react.js",
       "require": "./dist/basic_bot_react.umd.cjs",
       "types": "./dist/index.d.ts"
-    }
+    },
+    "./style.css": "./dist/style.css"
   },
   "files": [
     "dist"

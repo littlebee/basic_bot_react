@@ -164,6 +164,24 @@ vi.mock("../../utils/angleUtils", () => ({
 -   `.storybook/main.ts` - Storybook configuration
 -   `.github/workflows/deploy-storybook.yml` - CI/CD pipeline
 
+## Using the Library
+
+### Importing Components
+
+To use components from this library in your application:
+
+```typescript
+import { PanTilt, VideoFeed, ObjectsOverlay } from 'basic_bot_react';
+import 'basic_bot_react/style.css'; // Required: Import component styles
+```
+
+**IMPORTANT**: You must import `basic_bot_react/style.css` in your application to get component styling. Without this import, components will render without their CSS.
+
+For npm-linked development (e.g., `npm link ../basic_bot_react`), you may need to use a relative path:
+```typescript
+import '../basic_bot_react/dist/style.css';
+```
+
 ## Common Tasks
 
 ### Adding a New Component
