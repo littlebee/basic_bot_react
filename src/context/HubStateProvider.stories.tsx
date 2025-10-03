@@ -136,11 +136,7 @@ export const WithPanTilt: Story = {
  */
 export const CustomConfiguration: Story = {
     render: () => (
-        <HubStateProvider
-            port={5200}
-            autoConnect={false}
-            autoReconnect={false}
-        >
+        <HubStateProvider port={5200} autoConnect={false} autoReconnect={false}>
             <div style={{ padding: "20px" }}>
                 <h2>Custom Provider Configuration</h2>
                 <p>Port: 5200, autoConnect: false, autoReconnect: false</p>

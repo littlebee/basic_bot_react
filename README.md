@@ -96,11 +96,8 @@ function App() {
 }
 ```
 
-
 ## Documentation
 
 Component and utility function documentation is automatically generated and deployed to GitHub Pages.
 
 [View Documentation](https://littlebee.github.io/basic_bot_react)
-
-

@@ -6,13 +6,13 @@ import { HubStateProvider } from "./HubStateProvider";
 describe("useHubState", () => {
     it("throws error when used outside provider", () => {
         // Suppress console.error for this test since we expect an error
-        const consoleSpy = vi.spyOn(console, "error").mockImplementation(() => {});
+        const consoleSpy = vi
+            .spyOn(console, "error")
+            .mockImplementation(() => {});
 
         expect(() => {
             renderHook(() => useHubState());
-        }).toThrow(
-            "useHubState must be used within a HubStateProvider",
-        );
+        }).toThrow("useHubState must be used within a HubStateProvider");
 
         consoleSpy.mockRestore();
     });

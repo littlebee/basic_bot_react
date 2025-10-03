@@ -21,6 +21,7 @@ import {
  * React context for hub state.
  * Use the `useHubState` hook to access this context in your components.
  */
+// eslint-disable-next-line react-refresh/only-export-components
 export const HubStateContext = createContext<IHubState | null>(null);
 
 /**

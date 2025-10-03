@@ -137,14 +137,12 @@ describe("HubStateProvider", () => {
     });
 
     it("removes hub state listener on unmount", async () => {
-        const {
-            addHubStateUpdatedListener,
-            removeHubStateUpdatedListener,
-        } = await import("../utils/hubState");
+        const { addHubStateUpdatedListener, removeHubStateUpdatedListener } =
+            await import("../utils/hubState");
 
         let capturedHandler: ((state: IHubState) => void) | null = null;
 
-        (addHubStateUpdatedListener as any).mockImplementation(
+        vi.mocked(addHubStateUpdatedListener).mockImplementation(
             (handler: (state: IHubState) => void) => {
                 capturedHandler = handler;
             },
@@ -174,7 +172,7 @@ describe("HubStateProvider", () => {
 
         let stateUpdateHandler: ((state: IHubState) => void) | null = null;
 
-        (addHubStateUpdatedListener as any).mockImplementation(
+        vi.mocked(addHubStateUpdatedListener).mockImplementation(
             (handler: (state: IHubState) => void) => {
                 stateUpdateHandler = handler;
             },
