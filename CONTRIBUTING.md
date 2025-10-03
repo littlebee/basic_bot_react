@@ -113,5 +113,4 @@ export const Primary: Story = {
 - Always include a "className" prop on new components that gets appended to outer container
 - All css module class names for the outer most container element should be named like `bbr{ComponentName}` so PanTilt component's outer element class is `.bbrPanTilt`
 - Avoid arbitrary changing of `className`s on inner elements in component as they may be overridden by user of basic_bot_react library.
-- Avoid arbitrary changing of `className`s on inner elements in component as they may be overridden by user of basic_bot_react library.
 
