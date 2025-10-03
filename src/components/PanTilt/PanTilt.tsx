@@ -25,6 +25,8 @@ export interface PanTiltProps {
     servoAngles?: Record<string, number>;
     /** Actual current servo angles (pan/tilt) */
     servoActualAngles?: Record<string, number>;
+    /** Optional CSS class name to append to the component's outer containment element */
+    className?: string;
 }
 
 /**
@@ -43,6 +45,7 @@ export function PanTilt({
     servoConfig,
     servoAngles,
     servoActualAngles,
+    className,
 }: PanTiltProps) {
     // Try to get hub state from context (will be null if not in provider)
     const hubState = useContext(HubStateContext);
@@ -139,7 +142,10 @@ export function PanTilt({
     }
 
     return (
-        <div className={st.outerContainer} data-testid="pan-tilt">
+        <div
+            className={`${st.bbrPanTilt} ${className || ""}`}
+            data-testid="pan-tilt"
+        >
             <h4>Pan ({actualAngles?.["pan"].toFixed(1)})</h4>
             <div className={st.servoRange}>
                 <div>{panServo.max_angle}&deg;</div>

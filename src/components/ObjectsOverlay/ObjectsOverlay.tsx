@@ -9,6 +9,8 @@ import st from "./ObjectsOverlay.module.css";
 export interface ObjectsOverlayProps {
     /** Array of recognized objects to display with bounding boxes */
     recogObjects?: IRecognizedObject[];
+    /** Optional CSS class name to append to the component's outer containment element */
+    className?: string;
 }
 
 /**
@@ -22,7 +24,10 @@ export interface ObjectsOverlayProps {
  * - With props: Pass recogObjects directly
  * - With provider: Wrap in HubStateProvider and objects will be automatically populated from recognition state
  */
-export function ObjectsOverlay({ recogObjects }: ObjectsOverlayProps) {
+export function ObjectsOverlay({
+    recogObjects,
+    className,
+}: ObjectsOverlayProps) {
     // Try to get hub state from context (will be null if not in provider)
     const hubState = useContext(HubStateContext);
 
@@ -56,5 +61,9 @@ export function ObjectsOverlay({ recogObjects }: ObjectsOverlayProps) {
             </div>,
         );
     }
-    return <div className={st.wrapper}>{elements}</div>;
+    return (
+        <div className={`${st.bbrObjectsOverlay} ${className || ""}`}>
+            {elements}
+        </div>
+    );
 }

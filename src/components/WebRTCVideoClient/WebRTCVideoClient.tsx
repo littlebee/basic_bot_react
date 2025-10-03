@@ -1,11 +1,15 @@
 import { useEffect, useRef } from "react";
 import { WebRTCClient } from "../../utils/webrtcClient";
 
+import st from "./WebRTCVideoClient.module.css";
+
 export interface WebRTCVideoClientProps {
     /** Whether the WebRTC stream is currently active */
     isActive: boolean;
     /** Whether audio should be enabled (unmuted) */
     audioEnabled: boolean;
+    /** Optional CSS class name to append to the component's outer containment element */
+    className?: string;
 }
 
 /**
@@ -18,6 +22,7 @@ export interface WebRTCVideoClientProps {
 export const WebRTCVideoClient: React.FC<WebRTCVideoClientProps> = ({
     isActive,
     audioEnabled,
+    className,
 }) => {
     const videoRef = useRef<HTMLVideoElement>(null);
     const audioRef = useRef<HTMLAudioElement>(null);
@@ -45,7 +50,7 @@ export const WebRTCVideoClient: React.FC<WebRTCVideoClientProps> = ({
     }, [audioEnabled]);
 
     return (
-        <div style={{ position: "relative", width: "100%", height: "100%" }}>
+        <div className={`${st.bbrWebRTCVideoClient} ${className || ""}`}>
             <video
                 ref={videoRef}
                 autoPlay
