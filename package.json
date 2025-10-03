@@ -26,9 +26,9 @@
     "test:coverage": "vitest --coverage",
     "lint": "prettier --write . && eslint --fix .",
     "docs:generate": "typedoc",
-    "prestorybook": "npm run docs:generate",
+    "prestorybook": "npm run build && npm run docs:generate",
     "storybook": "storybook dev -p 6006",
-    "prebuild-storybook": "npm run docs:generate",
+    "prebuild-storybook": "npm run build && npm run docs:generate",
     "build-storybook": "storybook build",
     "prepublishOnly": "npm run test && npm run build"
   },

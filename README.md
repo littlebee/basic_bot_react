@@ -16,6 +16,7 @@ Use the `HubStateProvider` to automatically manage hub state and connection:
 
 ```tsx
 import { HubStateProvider, PanTilt } from "basic_bot_react";
+import "basic_bot_react/style.css";
 
 function App() {
     return (
@@ -41,6 +42,7 @@ import {
     addHubStateUpdatedListener,
     IHubState,
 } from "basic_bot_react";
+import "basic_bot_react/style.css";
 
 function App() {
     const [hubState, setHubState] = useState<IHubState>(DEFAULT_HUB_STATE);
@@ -72,6 +74,7 @@ Access hub state directly in your components:
 
 ```tsx
 import { HubStateProvider, useHubState } from "basic_bot_react";
+import "basic_bot_react/style.css";
 
 function MyComponent() {
     const hubState = useHubState();
