@@ -50,7 +50,7 @@ export const WebRTCVideoClient: React.FC<WebRTCVideoClientProps> = ({
     }, [audioEnabled]);
 
     return (
-        <div className={`${st.webRTCVideoContainer} ${className || ""}`}>
+        <div className={`${st.bbrWebRTCVideoClient} ${className || ""}`}>
             <video
                 ref={videoRef}
                 autoPlay

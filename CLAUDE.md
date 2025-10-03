@@ -138,8 +138,9 @@ vi.mock("../../utils/angleUtils", () => ({
 - **Always include tests** with good coverage
 - Use CSS modules for styling
 - Export component and its props interface
-- Always include a "className" prop that gets appended to outer container
-- All css module class names for the outer most container element should be named like `bbr{ComponentName}Container` so PanTilt component's outer element class is `.bbrPanTiltContainer`
+- Always include a "className" prop on new components that gets appended to outer container
+- All css module class names for the outer most container element should be named like `bbr{ComponentName}` so PanTilt component's outer element class is `.bbrPanTilt`
+- Avoid arbitrary changing of `className`s on inner elements in component as they may be overridden by user of basic_bot_react library.
 
 ### Code Style
 

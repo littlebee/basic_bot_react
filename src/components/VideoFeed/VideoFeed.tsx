@@ -64,7 +64,7 @@ export const VideoFeed: React.FC<VideoFeedProps> = ({
     // note must always render the img or it endlessly triggers onLoad
 
     return (
-        <div className={`${st.videoFeedContainer} ${className || ""}`}>
+        <div className={`${st.bbrVideoFeed} ${className || ""}`}>
             <img
                 style={imgStyle}
                 alt={alt}

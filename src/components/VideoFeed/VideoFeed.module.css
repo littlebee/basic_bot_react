@@ -1,9 +1,9 @@
-.videoFeedContainer {
+.bbrVideoFeed {
     align-self: center;
     min-width: 100%;
 }
 
-.videoFeedContainer img {
+.bbrVideoFeed img {
     width: 640px;
     object-fit: contain;
 }

@@ -143,7 +143,7 @@ export function PanTilt({
 
     return (
         <div
-            className={`${st.outerContainer} ${className || ""}`}
+            className={`${st.bbrPanTilt} ${className || ""}`}
             data-testid="pan-tilt"
         >
             <h4>Pan ({actualAngles?.["pan"].toFixed(1)})</h4>

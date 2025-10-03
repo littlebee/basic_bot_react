@@ -106,3 +106,12 @@ export const Primary: Story = {
 2. Run tests and build: `npm run prepublishOnly`
 3. Login to NPM: `npm login`
 4. Publish: `npm publish --access public`
+
+
+## CSS
+- Use [css modules](https://www.w3schools.com/react/react_css_modules.asp)
+- Always include a "className" prop on new components that gets appended to outer container
+- All css module class names for the outer most container element should be named like `bbr{ComponentName}` so PanTilt component's outer element class is `.bbrPanTilt`
+- Avoid arbitrary changing of `className`s on inner elements in component as they may be overridden by user of basic_bot_react library.
+- Avoid arbitrary changing of `className`s on inner elements in component as they may be overridden by user of basic_bot_react library.
+

@@ -61,5 +61,9 @@ export function ObjectsOverlay({
             </div>,
         );
     }
-    return <div className={`${st.wrapper} ${className || ""}`}>{elements}</div>;
+    return (
+        <div className={`${st.bbrObjectsOverlay} ${className || ""}`}>
+            {elements}
+        </div>
+    );
 }
