@@ -5,6 +5,7 @@ import { VideoFeed } from "./VideoFeed";
 // Mock the videoHost constant
 vi.mock("../../utils/hubState", () => ({
     videoHost: "localhost:5801",
+    mjpegVideoHost: "localhost:5803",
 }));
 
 describe("VideoFeed", () => {
