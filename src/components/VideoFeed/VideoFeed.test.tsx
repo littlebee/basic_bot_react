@@ -5,6 +5,7 @@ import { VideoFeed } from "./VideoFeed";
 // Mock the videoHost constant
 vi.mock("../../utils/hubState", () => ({
     videoHost: "localhost:5801",
+    mjpegVideoHost: "localhost:5803",
 }));
 
 describe("VideoFeed", () => {
@@ -30,7 +31,7 @@ describe("VideoFeed", () => {
         img.dispatchEvent(new Event("load"));
 
         await waitFor(() => {
-            expect(img.src).toContain("http://localhost:5801/video_feed");
+            expect(img.src).toContain("http://localhost:5803/video_feed");
         });
     });
 
