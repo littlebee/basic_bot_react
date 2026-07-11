@@ -31,7 +31,7 @@ describe("VideoFeed", () => {
         img.dispatchEvent(new Event("load"));
 
         await waitFor(() => {
-            expect(img.src).toContain("http://localhost:5801/video_feed");
+            expect(img.src).toContain("http://localhost:5803/video_feed");
         });
     });
 
