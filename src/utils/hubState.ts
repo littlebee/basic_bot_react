@@ -20,6 +20,9 @@ export const hubHost = urlParams.get("hubHost") || window.location.hostname;
 /** Video feed hostname with default port */
 export const videoHost = hubHost + ":5801";
 
+/** Video feed hostname with default port */
+export const mjpegVideoHost = hubHost + ":5803";
+
 // How often to check if hub is really still alive
 const HUB_PING_INTERVAL = 1000;
 // with us pinging every 1000ms, there should

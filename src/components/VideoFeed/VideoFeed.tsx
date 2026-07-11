@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import { videoHost } from "../../utils/hubState";
+import { mjpegVideoHost } from "../../utils/hubState";
 
 import st from "./VideoFeed.module.css";
 
@@ -38,7 +38,7 @@ export const VideoFeed: React.FC<VideoFeedProps> = ({
     const handleError = (e: React.SyntheticEvent<HTMLImageElement, Event>) => {
         setIsLoading(true);
         console.error("got error from image load", e);
-        setErrorMessage(`Unable to get video feed from ${videoHost}`);
+        setErrorMessage(`Unable to get video feed from ${mjpegVideoHost}`);
     };
 
     const handleLoad = () => {
@@ -47,7 +47,7 @@ export const VideoFeed: React.FC<VideoFeedProps> = ({
         setIsLoading(false);
     };
 
-    const feedUrl = `http://${videoHost}/video_feed?rand=${rand}`;
+    const feedUrl = `http://${mjpegVideoHost}/video_feed?rand=${rand}`;
     let imgStyle = {};
     let src = feedUrl;
     let alt = "video feed";
